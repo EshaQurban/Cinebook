@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinebook</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">cinebook</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about_us.html">About us</a>
+                <a href="contact_us.html">Contact us</a>
+                <a href="login.html" id="navLogin">Login</a>
+                <a href="signup.html" id="navSignup">Sign up</a>
+                <a href="#" id="navLogout" style="display:none;">Logout</a>
+            </div>
+        </nav>
+        <div class="header">
+            <h1>A Quite Place</h1>
+            <p>2023 &nbsp; 2h7m &nbsp; English &nbsp; Horror</p>
+            <p>As the last light flickers out, 17 year old Bella<br> discovers her mirror reflection has become a<br> malevolent entity hell...<a href="more.html">more</a></p>
+        </div>
+        <div class="latest-release">
+            <h2>Latest Release</h2>
+            <div class="movie-posters">
+                <a href="/images.html/jailer.html">
+                    <div class="movie-poster">
+                        <img src="/images/jailer.jpg" alt="Jailer"/>
+                    </div>
+                </a>
+                <a href="/images.html/bloody hand.html">
+                <div class="movie-poster">
+                        <img src="/images/bloody hand.jpg" alt="Bloody Hand"/>
+                    </div>
+                </a>
+                <a href="/images.html/heretic.html">
+                <div class="movie-poster">
+                        <img src="/images/heretic.jpg" alt="Heretic"/>
+                    </div>
+                </a>
+                <a href="/images.html/dracola.html">
+                        <div class="movie-poster">
+                        <img src="/images/dracola.png" alt="Dracola"/>
+                    </div>
+                </a>
+                <a href="/images.html/morbius.html">
+                        <div class="movie-poster">
+                        <img src="/images/morbius.png" alt="Morbius"/>
+                    </div>
+                </a>
+                <a href="/images.html/hereditary.html">
+                        <div class="movie-poster">
+                        <img src="/images/hereditary.png" alt="Hereditary"/>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="top-trending">
+            <h2>Top Trending</h2>
+            <div class="movie-posters">
+                <a href="/images.html/jessica jones.html">
+                    <div class="movie-poster">
+                        <img src="images/jessica jones.jpg" alt="Jessica Jones">
+                    </div>
+                </a>
+                <a href="/images.html/stopmotion.html">
+                    <div class="movie-poster">
+                        <img src="/images/stopmotion.jpg" alt="Stopmotion">
+                    </div>
+                </a>
+                <a href="/images.html/inffernno.html">
+                    <div class="movie-poster">
+                        <img src="/images/inffernno.jpg" alt="In to the Inferno">
+                    </div>
+                </a>
+                <a href="/images.html/evil dead and rise.html">
+                    <div class="movie-poster">
+                        <img src="images/evil dead and rise.png" alt="evil dead and rise">
+                    </div>
+                </a>
+                <a href="/images.html/smile.html">
+                    <div class="movie-poster">
+                        <img src="/images/smile.png" alt="smile">
+                    </div>
+                </a>
+                <a href="/images.html/insidious.html">
+                    <div class="movie-poster">
+                        <img src="/images/insidious.png" alt="insidious">
+                    </div>
+                </a>
+            </div>
+        </div>
+         <div class="free watch">
+            <h2>free watch now</h2>
+            <div class="movie-posters">
+            <a href="/images.html/twilight.html">
+                        <div class="movie-poster">
+                        <img src="/images/twilight.png" alt="twilight" />
+                    </div>
+                </a>
+                <a href="/images.html/jeepers creepers.html">
+                        <div class="movie-poster">
+                        <img src="/images/jeepers creepers.png" alt="jeepers creepers"/>
+                    </div>
+                </a>
+                <a href="/images.html/howl.html">
+                    <div class="movie-poster">
+                        <img src="/images/howl.png" alt="Howl"/>
+                    </div>
+                </a>
+                <a href="/images.html/the piper.html">
+                <div class="movie-poster">
+                    <img src="/images/the piper.png" alt="The Piper"/>
+                    </div>
+                </a>
+                <a href="/images.html/the ghost rider.html">
+                    <div class="movie-poster">
+                        <img src="/images/the ghost rider.png"alt="The ghost rider"/>
+                    </div>
+                </a>
+                <a href="/images.html/the hell boy.html">
+                    <div class="movie-poster">
+                        <img src="/images/the hell boy.png"alt="The Hell Boy"/>
+                    </div>  
+                </a>
+         </div>    
+       </div>
+       
+
+
+<script>
+(function(){
+ const loggedIn = localStorage.getItem('cinebookLoggedIn') === 'true';
+ const login=document.getElementById('navLogin'), signup=document.getElementById('navSignup'), logout=document.getElementById('navLogout');
+ if(loggedIn){ if(login) login.style.display='none'; if(signup) signup.style.display='none'; if(logout) logout.style.display='inline-block'; }
+ if(logout) logout.addEventListener('click',function(e){e.preventDefault(); localStorage.removeItem('cinebookLoggedIn'); location.reload();});
+})();
+</script>
+</body>
+</html>
+
+

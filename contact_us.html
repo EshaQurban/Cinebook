@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="/css/contact_style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Cine Book</h1>
+    <h2>Contact Us</h2>
+    <form>
+     
+      <input type="text" name="firstname" placeholder="First Name" required /><br>
+
+     
+      <input type="email" name="email" placeholder="Email" required /><br>
+
+      
+      <textarea name="message" placeholder="Your Message" required></textarea><br>
+
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+   let btn = document.querySelector("button");
+   btn.addEventListener('click', function(){
+     alert("your message is submitted!");
+   });
+  </script>
+</body>
+</html>

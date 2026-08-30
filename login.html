@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cine book - Login</title>
+<style>
+body{margin:0;padding:0;font-family:Arial,sans-serif}.background-image{position:fixed;inset:0;width:100%;height:100%;background-image:url("images/logiimage.jpg");background-repeat:no-repeat;background-size:cover;background-position:center;z-index:-1}.login-container{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;padding:20px;background:#000;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,.5)}.login-container h1{color:#ff0000;text-align:center;margin-bottom:20px}.login-container input{box-sizing:border-box;width:100%;height:40px;margin-bottom:15px;padding:10px;border:0;border-radius:10px;background:#333;color:#fff;text-align:center}.forget-password{color:#fff;text-decoration:none;font-size:14px}.login-button{width:50%;height:40px;background:#ff0000;color:#fff;border:0;border-radius:5px;cursor:pointer;margin:15px 25% 0}.login-container p{color:#fff;text-align:center;font-size:14px;margin-top:12px}.sign-up-button{background:rgb(72,137,241);border:0;cursor:pointer;border-radius:5px;padding:5px 8px;color:#fff}.sign-up-button a{color:#fff;text-decoration:none}.message{display:none;color:#ff7777;text-align:center;font-size:13px;margin-top:10px}.success{color:#90ee90}@media(max-width:480px){.login-container{width:calc(100% - 50px);box-sizing:border-box}}
+</style>
+</head>
+<body>
+<div class="background-image"></div>
+<div class="login-container">
+<h1>Cine book</h1>
+<form id="loginForm">
+<input id="loginEmail" type="email" placeholder="Email" required>
+<input id="loginPassword" type="password" placeholder="Password" required>
+<a href="#" class="forget-password">Forget Password?</a><br>
+<button type="submit" class="login-button">Login</button>
+<p>Don't have an account? <button type="button" class="sign-up-button"><a href="signup.html">Sign up</a></button></p>
+<p id="message" class="message"></p>
+</form></div>
+<script>
+document.getElementById('loginForm').addEventListener('submit',function(e){
+ e.preventDefault(); const msg=document.getElementById('message'); msg.style.display='block'; msg.className='message';
+ const user=JSON.parse(localStorage.getItem('cinebookUser')||'null'); const email=document.getElementById('loginEmail').value.trim().toLowerCase(); const password=document.getElementById('loginPassword').value;
+ if(!user){msg.textContent='No account found. Please sign up first.';return;}
+ if(user.email===email && user.password===password){localStorage.setItem('cinebookLoggedIn','true');msg.textContent='Login successful!';msg.classList.add('success');setTimeout(()=>location.href='index.html',500);}
+ else msg.textContent='Invalid email or password.';
+});
+</script>
+</body></html>
