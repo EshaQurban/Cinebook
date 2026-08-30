@@ -14,5 +14,3 @@ Cinebook is a movie ticket booking website designed with a modern and user-frien
 - CSS
 - JavaScript
 
-## Live Website
-[View Cinebook](YOUR-GITHUB-PAGES-LINK)
