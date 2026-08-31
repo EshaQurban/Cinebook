@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Movie Seat Booking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    #seat-container {
+      display: grid;
+      grid-template-columns: repeat(6, 50px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .seat {
+      width: 50px;
+      height: 50px;
+      background-color: #444;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+    .seat.selected { background-color: #6feaf6; }
+    .seat.booked { background-color: #e74c3c; cursor: not-allowed; }
+    .info { margin-top: 20px; font-size: 18px; }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+    #bookBtn { background-color: #27ae60; color: #fff; }
+    #cancelBtn { background-color: #c0392b; color: #fff; margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Movie Seat Booking</h1>
+  <div id="seat-container"></div>
+  <div class="info">
+    Seats Selected: <span id="count">0</span><br />
+    Total Price: <span id="total">0</span>
+  </div>
+  <button id="bookBtn">Book Now</button>
+  <button id="cancelBtn">Cancel Booking</button>
+
+  <script>
+    const seatContainer = document.getElementById('seat-container');
+    const count = document.getElementById('count');
+    const total = document.getElementById('total');
+    const bookBtn = document.getElementById('bookBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const pricePerSeat = 1500;
+    const totalSeats = 30;
+
+    let bookedSeats = (JSON.parse(localStorage.getItem('bookedSeats')) || []).map(Number);
+
+    // Render seats
+    for (let i = 1; i <= totalSeats; i++) {
+      const seat = document.createElement('div');
+      seat.classList.add('seat');
+      seat.setAttribute('data-seat', i);
+      seat.innerText = i;
+      if (bookedSeats.includes(i)) seat.classList.add('booked');
+      seatContainer.appendChild(seat);
+    }
+
+    // Select seats
+    seatContainer.addEventListener('click', (e) => {
+      const seat = e.target;
+      if (seat.classList.contains('seat') && !seat.classList.contains('booked')) {
+        seat.classList.toggle('selected');
+        updateSelectedCount();
+      }
+    });
+
+    function updateSelectedCount() {
+      const selectedSeats = document.querySelectorAll('.seat.selected');
+      const selectedCount = selectedSeats.length;
+      count.innerText = selectedCount;
+      total.innerText = selectedCount * pricePerSeat;
+    }
+
+    bookBtn.addEventListener('click', () => {
+      const selectedSeats = document.querySelectorAll('.seat.selected');
+      if (selectedSeats.length === 0) return alert('Please select at least one seat!');
+
+      const userName = prompt("Enter your name:");
+      if (!userName) return alert("Name is required!");
+
+      const seatNumbers = [];
+      selectedSeats.forEach(seat => {
+        const seatNum = parseInt(seat.getAttribute('data-seat'));
+        seat.classList.remove('selected');
+        seat.classList.add('booked');
+        if (!bookedSeats.includes(seatNum)) bookedSeats.push(seatNum);
+        seatNumbers.push(seatNum);
+      });
+
+      localStorage.setItem('bookedSeats', JSON.stringify(bookedSeats));
+      updateSelectedCount();
+
+      const ticketTotal = seatNumbers.length * pricePerSeat;
+      const seatString = seatNumbers.join(',');
+      
+      // Corrected URL line here:
+      const now = new Date();
+const bookingDate = now.toISOString().split('T')[0]; // YYYY-MM-DD
+const bookingDay = now.toLocaleDateString('en-US', { weekday: 'long' });
+const bookingTime = now.toISOString().slice(0, 19).replace('T', ' '); // YYYY-MM-DD HH:MM:SS
+/*window.location.href = `payment.php?name=${encodeURIComponent(userName)}&seat=${seatString}&total=${ticketTotal}`;*/
+
+
+window.location.href = `payment.html?name=${encodeURIComponent(userName)}&seat=${seatString}&total=${ticketTotal}&date=${bookingDate}&day=${bookingDay}&time=${bookingTime}`;
+
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      const cancelSeats = prompt("Enter seat numbers to cancel (comma-separated):");
+      if (!cancelSeats) return;
+      const cancelArray = cancelSeats.split(',').map(s => parseInt(s.trim()));
+      let canceled = false;
+      cancelArray.forEach(num => {
+        if (bookedSeats.includes(num)) {
+          const seatEl = document.querySelector(`.seat[data-seat="${num}"]`);
+          if (seatEl) {
+            seatEl.classList.remove('booked');
+            bookedSeats = bookedSeats.filter(seat => seat !== num);
+            canceled = true;
+          }
+        }
+      });
+      if (canceled) {
+        localStorage.setItem('bookedSeats', JSON.stringify(bookedSeats));
+        updateSelectedCount();
+        alert("Selected bookings have been canceled.");
+      } else {
+        alert("No valid booked seat numbers were provided.");
+      }
+    });
+
+    updateSelectedCount();
+  </script>
+</body>
+</html>

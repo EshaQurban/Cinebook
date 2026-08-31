@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payment - Cinebook</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1b1919;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url(/images/ticket_image.png);
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .container {
+      background: #3a3a3a;
+      padding: 25px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      color: #e9eaec;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #e7e4e4;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    #ticket {
+      background-color: rgb(41, 89, 201);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .success {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+    }
+
+    ul {
+      list-style: disc;
+      margin: 0;
+      padding-left: 20px;
+      text-align: left;
+    }
+
+    #snackSummary {
+      margin-top: 15px;
+    }
+
+    .summary-label {
+      font-weight: bold;
+      color: #e4dfdf;
+    }
+
+    strong {
+      color: #d83636;
+      text-align: justify;
+    }
+
+    span {
+      color:  #e4dfdf;
+    }
+
+    #grandtotal {
+      font-weight: bold;
+    }
+
+    h1 {
+      color: #ff0000;
+    }
+
+    #snackList {
+      color: #e4dfdf;
+      text-align: center;
+    }
+
+    ul {
+      text-align: center;
+    }
+    #snacks{
+      background-color: #d83636;
+
+    }
+    #payment-method{
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>CINE BOOK</h1>
+    <h2>Payment Page</h2>
+    <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+    <p><strong>Seat No:</strong> <span id="seatNo">Loading...</span></p>
+    <p><strong>Seat Price: Rs</strong> <span id="amount">1500</span></p>
+    <label for="payment-method">Choose Payment Method:</label>
+    <select id="payment-method" required>
+      <option value="">Select option</option>
+      <option value="easypaisa">Easypaisa</option>
+      <option value="jazzcash">JazzCash</option>
+      <option value="card">Credit/Debit Card</option>
+      <option value="cash">Cash at Counter</option>
+    </select>
+    <br>
+   <div id="successBox" style="display: none;">Payment Successful!</div>
+
+
+    <button id="payBtn" onclick="alert('successful payment!')">Pay Now</button>
+    <button id="ticket"><a href="final_ticket_display.html" style="color:white;text-decoration:none;">Get ticket</a></button>
+   
+    <button id="snacks"><a href="Snacks.html" style="color:white;text-decoration:none;">Snacks?</a></button>
+
+   
+  </div>
+
+  <script>
+    // Step 1: Get URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name') || 'Guest';
+    const seat = urlParams.get('seat') || 'N/A';
+
+    // Step 2: Inject values
+    document.getElementById('userName').innerText = name;
+    document.getElementById('seatNo').innerText = seat;
+
+    // Step 3: Get snack data from localStorage
+    const snacks = JSON.parse(localStorage.getItem('selectedSnacks')) || {};
+    const snackList = document.getElementById('snackList');
+    const snackTotal = document.getElementById('snackTotal');
+    const seatPrice = parseInt(document.getElementById('amount').innerText);
+    const grandTotal = document.getElementById('grandTotal');
+
+    let snackSum = 0;
+
+    for (let key in snacks) {
+      if (key !== 'total' && snacks[key] > 0) {
+        const item = document.createElement('li');
+        const formattedName = key.charAt(0).toUpperCase() + key.slice(1);
+        item.textContent = `${formattedName} x ${snacks[key]}`;
+        snackList.appendChild(item);
+      }
+    }
+
+    snackSum = snacks.total || 0;
+    snackTotal.innerText = snackSum;
+    grandTotal.innerText = seatPrice + snackSum;
+
+    // Step 4: Handle Payment
+    document.getElementById('payBtn').addEventListener('click', function () {
+  const method = document.getElementById('payment-method').value;
+  if (!method) {
+    alert("Please select a payment method!");
+  }
+  else {
+    alert('Your payment is successful');
+    document.getElementById('successBox').style.display = 'block';
+  }
+});
+
+  </script>
+
+</body>
+</html>

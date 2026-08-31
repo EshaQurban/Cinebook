@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinebook Sialkot</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    background-image: url(/images/ticket_image.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size:cover;
+    background-position: center;
+
+}
+
+.ticket {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ticket h1 {
+    color: red;
+    text-align: center;
+}
+
+.ticket p {
+    margin-bottom: 10px;
+}
+
+.details {
+    margin-top: 20px;
+}
+
+.details p {
+    margin-bottom: 5px;
+}
+img{
+    margin-left:20%;
+}
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="ticket">
+        <h1>Cinebook Sialkot</h1>
+        <p>Jailer Movie</p>
+        <p>City town Sialkot</p>
+        <div class="details">
+            <p>Date: 28th March</p>
+            <p>Time: 05:00-08:00</p>
+            <p>Seat No: 12</p>
+            <p>Visitor Name: Anoosh Zafar</p>
+        </div>
+        <p>Show the QR code at the counter</p>
+        <hr>
+        <img src="/images/QR.png" alt="QR Code">
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const ticket = document.querySelector(".ticket");
+    ticket.style.display = "block";
+});
+    </script>
+</body>
+</html>
